@@ -1,0 +1,32 @@
+{
+  "name": "musical-forecast",
+  "version": "1.0.0",
+  "description": "App that allows users to follow musical artists and look ahead at any of those artists upcoming releases",
+  "main": "serverApp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/serverApp.js"
+  },
+  "keywords": [
+    "sequal",
+    "angular",
+    "angular-material",
+    "password",
+    "full-stack",
+    "node",
+    "API"
+  ],
+  "author": "Zach Kusz",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^0.8.6",
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "pg": "^4.5.6",
+    "request": "^2.72.0"
+  }
+}
