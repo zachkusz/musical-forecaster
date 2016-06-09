@@ -8,7 +8,7 @@ var path = require('path');
 var encryptLib = require('../modules/encryption');
 var connection = require('../modules/connection');
 var pg = require('pg');
-var connectionString = 'postgres://localhost:5432/budget';
+var connectionString = 'postgres://localhost:5432/musical-forecast'; //changed from budget. idk how it worked before...
 
 console.log('this ran');
 // Handles request for HTML file

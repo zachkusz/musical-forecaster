@@ -4,5 +4,21 @@
   <h3>Search</h3>
   <label for="artist">Artist/Band Name:</label>
   <input ng-model="query"type="text" name="artist" />
-  <button>Search</button>
+  <button ng-click="search()">Search</button>
+  <h6 ng-show="artists != null">{{found}}</h6>
 </form>
+
+<div class="row">
+  <h4 class="three columns">Name:</h4>
+  <h4 class="three columns">Tag:</h4>
+  <h4 class="three columns">Origin Date:</h4>
+</div>
+
+<div ng-repeat="artist in artists">
+  <div class="row">
+    <h6 class="three columns">{{artist.name}}</h6>
+    <h6 class="three columns">{{artist.disambiguation}}</h6>
+    <h6 class="three columns">{{artist['life-span'].begin}}</h6>
+    <button ng-click="follow(artist._id, artist.name)">Follow</button>
+  </div>
+</div>

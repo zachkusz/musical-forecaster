@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var pg = require('pg');
-var connectionString = 'postgres://localhost:5432/budget';
+var connectionString = 'postgres://localhost:5432/musical-forecast'; //...also changed from budget
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/', function(req, res) {

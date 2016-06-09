@@ -15,7 +15,8 @@ var session = require('express-session');
 var login = require('./routes/login');
 var register = require('./routes/register');
 var router = require('./routes/routes');
-var todaysAlbums = require('./routes/todaysAlbums');
+var musicBrainz = require('./routes/musicBrainz');
+var follow = require('./routes/follow');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -38,7 +39,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-app.use('/todaysAlbums', todaysAlbums);
+app.use('/musicBrainz/', musicBrainz);
+app.use('/follow', follow);
 app.use('/register', register);
 app.use('/router', router);
 app.use('/login', login);
