@@ -1,5 +1,7 @@
 app.controller('LandingController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory', function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
+LoginAndLandingFactory.getUser;
+$scope.userName = LoginAndLandingFactory.user.userName;
 $scope.message = LoginAndLandingFactory.exampleText;
 
 //requests albums released today (logic is server side)
@@ -12,33 +14,14 @@ $scope.searchTodaysAlbums = function(){
         var x2js = new X2JS();
         var xmlText = response.data;
         var jsonObj = x2js.xml_str2json( xmlText );
-        console.log(jsonObj);
+        //extracting useful info from data-object
+        $scope.albums = jsonObj.metadata['release-list'].release;
+        console.log($scope.albums);
+        //artist = .release['artist-credit']['name-credit']
       }
     );
   // }
 } //end of searchTodaysAlbums
+$scope.logout = LoginAndLandingFactory.logout;
 
-//\\ userinfo - may need to do this in a factory all below needed to do login stuffs\\//
-$scope.user_id= {};
-getUser();
-
-function getUser() {
-$http.get('/router').then(function(response) {
-      if(response.data.username) {
-          $scope.userName = response.data.username;
-          $scope.user_id = response.data._id;
-          console.log('User Data: ', $scope.userName);
-      } else {
-          $location.path("/login");
-      }
-  });
-}
-
-$scope.logout = function() {
-  $http.get('/router/logout').then(function(response) {
-    console.log('logged out');
-    $location.path("/login");
-  });
-};
-//\\ end of login/logout stuffs \\//
 }]);

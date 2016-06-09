@@ -1,11 +1,21 @@
-<h1 ng-init="searchTodaysAlbums()">landing page!</h1>
 <p>{{message}}</p>
-<div class="container">
-    <p id="welcome" class="lead">Signed in as: {{userName}}</p>
-    <button class="btn btn-default" ng-click="logout()">Log Out</button>
+<div>
+  <p ng-if="userName != ''">Signed in as: {{userName}}</p>
+  <button ng-if="userName != ''" ng-click="logout()">Log Out</button>
 </div>
 
 <button ng-click="searchTodaysAlbums()">Request Album</button>
 
-<h3>The album will appear below</h3>
-<p>{{album}}</p>
+<div class="row">
+  <h4 class="two columns">Artist</h4>
+  <h4 class="two columns">Title</h4>
+  <h4 class="two columns">Record Label</h4>
+</div>
+
+<div class="todaysalbums" ng-repeat="album in albums">
+  <div class="row">
+    <h5 class="two columns">{{album['artist-credit']['name-credit'].artist.name}}</h5>
+    <h5 class="two columns">{{album.title}}</h5>
+    <h5 class="two columns">{{album['label-info-list']['label-info'].label.name}}</h5>
+  </div>
+</div>
