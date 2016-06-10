@@ -15,17 +15,27 @@ router.post('/', function(req, res) {
       res.sendStatus(500);
     }
 
-    client.query('INSERT INTO artists (artist_id, artist_name) ' +
-                    'VALUES ($1, $2)', [follow.id, follow.name],
+  client.query('INSERT INTO artists (artist_id, artist_name) ' +
+                'VALUES ($1, $2)', [follow.id, follow.name],
+                function(err, result) {
+                  if (err) {
+                    res.sendStatus(500);
+                    return;
+                  }
+
+                  client.query('INSERT INTO user_artist (user_id, artist_id) ' +
+                  'VALUES ($1, $2)', [follow.user_id, follow.id],
                   function(err, result) {
                     done();
-
                     if (err) {
                       res.sendStatus(500);
                       return;
                     }
                     res.sendStatus(201);
-                  }
+                  });
+
+
+                }
     );
   });
 });

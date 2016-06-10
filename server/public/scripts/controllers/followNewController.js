@@ -2,7 +2,9 @@ app.controller('FollowNewController', ['$scope','$http', '$window', '$location',
   console.log('followNew controller running');
 
   LoginAndLandingFactory.getUser; //line may be redundant? May only need to get user data once
-  console.log(LoginAndLandingFactory.user);
+  //gets user to use in bridge table when they follow an artist
+  var user_id = LoginAndLandingFactory.user.user_id;
+  console.log(user_id);
   //makes user's search a global scope
   $scope.query = '';
 
@@ -28,7 +30,7 @@ app.controller('FollowNewController', ['$scope','$http', '$window', '$location',
 
   //user clicks on a band to follow it
   $scope.follow = function(id, name) {
-    var follow = {id: id, name: name};
+    var follow = {id: id, name: name, user_id: user_id};
     console.log('followed ', follow);
 
     $http.post('/follow', follow).then(
