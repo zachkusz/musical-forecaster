@@ -1,8 +1,12 @@
-app.controller('FollowNewController', ['$scope','$http', '$window', '$location', function($scope, $http, $window, $location) {
+app.controller('FollowNewController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory', function($scope, $http, $window, $location, LoginAndLandingFactory) {
   console.log('followNew controller running');
 
+  LoginAndLandingFactory.getUser; //line may be redundant? May only need to get user data once
+  console.log(LoginAndLandingFactory.user);
+  //makes user's search a global scope
   $scope.query = '';
 
+  //user searches for a band to follow
   $scope.search = function() {
     console.log('searched for: ' + $scope.query);
     $http.get('/musicBrainz/search/' + $scope.query).then(
@@ -22,8 +26,16 @@ app.controller('FollowNewController', ['$scope','$http', '$window', '$location',
     );
   }//end of search
 
+  //user clicks on a band to follow it
   $scope.follow = function(id, name) {
-    console.log('followed ' + id + name);
+    var follow = {id: id, name: name};
+    console.log('followed ', follow);
+
+    $http.post('/follow', follow).then(
+      function(response) {
+        console.log(response);
+      }
+    );
   }//end of follow
 
 }]);

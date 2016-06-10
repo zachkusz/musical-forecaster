@@ -9,7 +9,7 @@ app.factory('LoginAndLandingFactory', ['$http', '$window', '$location', function
   $http.get('/router').then(function(response) {
         if(response.data.username) {
             user.userName = response.data.username;
-            user.user_id = response.data._id; //var initialized above
+            user.user_id = response.data.id; //var initialized above
             console.log('User Data: ', user.userName);
         } else {
             $location.path("/login");
