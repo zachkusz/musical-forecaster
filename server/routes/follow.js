@@ -6,7 +6,27 @@ var request = require('request'); //may not need
 var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/musical-forecast';
 
-//adds artist to artsists before adding them to bridge table
+router.get('/:id', function (req, res) {
+  var id = req.params.id;
+  console.log('user id: ', id);
+
+  pg.connect(connectionString, function(err, client, done) {
+    if (err) {
+      res.sendStatus(500);
+    }
+
+    client.query('SELECT artist_id FROM user_artist WHERE user_id = $1',
+    [id],
+    function(err, result) {
+    done();
+
+    res.send(result.rows);
+
+    });
+  });
+});
+
+//adds artist to artsists table then adds them to bridge table
 router.post('/', function(req, res) {
   var follow = req.body;
 
@@ -22,7 +42,7 @@ router.post('/', function(req, res) {
                     res.sendStatus(500);
                     return;
                   }
-
+                  //nested query function
                   client.query('INSERT INTO user_artist (user_id, artist_id) ' +
                   'VALUES ($1, $2)', [follow.user_id, follow.id],
                   function(err, result) {
@@ -33,8 +53,6 @@ router.post('/', function(req, res) {
                     }
                     res.sendStatus(201);
                   });
-
-
                 }
     );
   });

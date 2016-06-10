@@ -1,8 +1,12 @@
 app.controller('LandingController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory', function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
-LoginAndLandingFactory.getUser;
-$scope.userName = LoginAndLandingFactory.user.userName;
-$scope.message = LoginAndLandingFactory.exampleText;
+// if (LoginAndLandingFactory.user.userName != undefined){
+//   LoginAndLandingFactory.getUser().then(function(){
+    $scope.userName = LoginAndLandingFactory.user.userName;
+    $scope.message = LoginAndLandingFactory.exampleText;
+    console.log($scope.userName);
+//   });
+// }
 
 //requests albums released today (logic is server side)
 $scope.searchTodaysAlbums = function(){
@@ -19,6 +23,8 @@ $scope.searchTodaysAlbums = function(){
     }
   );
 } //end of searchTodaysAlbums
-$scope.logout = LoginAndLandingFactory.logout;
+$scope.logout = function(){
+  LoginAndLandingFactory.logout();
+}
 
 }]);

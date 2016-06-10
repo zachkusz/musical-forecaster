@@ -1,4 +1,4 @@
-app.controller('LoginController', ['$scope', '$http', '$window', '$location', function($scope, $http, $window, $location) {
+app.controller('LoginController', ['$scope', '$http', '$window', '$location', 'LoginAndLandingFactory', function($scope, $http, $window, $location, LoginAndLandingFactory) {
     $scope.user = {
       username: '',
       password: ''
@@ -15,7 +15,9 @@ app.controller('LoginController', ['$scope', '$http', '$window', '$location', fu
           if(response.data.username) {
             console.log('success: ', response.data);
             // location works with SPA (ng-route)
-            $location.path('/landing');
+            LoginAndLandingFactory.getUser().then(function() {
+              $location.path('/landing');
+            });
           } else {
             console.log('failure: ', response);
             $scope.message = "Wrong!!";

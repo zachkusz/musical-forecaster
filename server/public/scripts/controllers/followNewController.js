@@ -1,10 +1,14 @@
 app.controller('FollowNewController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory', function($scope, $http, $window, $location, LoginAndLandingFactory) {
   console.log('followNew controller running');
 
-  LoginAndLandingFactory.getUser; //line may be redundant? May only need to get user data once
-  //gets user to use in bridge table when they follow an artist
-  var user_id = LoginAndLandingFactory.user.user_id;
-  console.log(user_id);
+
+  // if (LoginAndLandingFactory.user.userName != undefined){
+  //   LoginAndLandingFactory.getUser().then(function(){
+      var user_id = LoginAndLandingFactory.user.user_id;
+      console.log(user_id);
+  //   });
+  // }
+
   //makes user's search a global scope
   $scope.query = '';
 

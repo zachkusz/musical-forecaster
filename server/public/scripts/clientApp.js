@@ -14,6 +14,10 @@ app.config(['$routeProvider', function($routeProvider) {
   			templateUrl: '../views/register.html',
   			controller: "LoginController"
   		})
+      .when('/myArtists', {
+        templateUrl: '../views/myArtists.html',
+        controller: "MyArtistsController"
+      })
   		.when('/followNew', {
   			templateUrl: '/views/followNew.html',
   			controller: "FollowNewController"

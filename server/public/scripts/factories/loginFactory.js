@@ -3,13 +3,12 @@ app.factory('LoginAndLandingFactory', ['$http', '$window', '$location', function
   //\\ userinfo - may need to do this in a factory all below needed to do login stuffs\\//
   // var user_id= {};
   var user = {};
-  getUser();
 
   function getUser() {
-  $http.get('/router').then(function(response) {
+  return $http.get('/router').then(function(response) {
         if(response.data.username) {
             user.userName = response.data.username;
-            user.user_id = response.data.id; //var initialized above
+            user.user_id = response.data.id; //var initialized globaly
             console.log('User Data: ', user.userName);
         } else {
             $location.path("/login");
@@ -18,9 +17,11 @@ app.factory('LoginAndLandingFactory', ['$http', '$window', '$location', function
   }
 
   function logout() {
-    $http.get('/router/logout').then(function(response) {
+    return $http.get('/router/logout').then(function(response) {
       console.log('logged out');
       $location.path("/login");
+      user.userName = undefined;
+      user.user_id = undefined;
     });
   };
   //\\ end of login/logout stuffs \\//
@@ -32,7 +33,7 @@ app.factory('LoginAndLandingFactory', ['$http', '$window', '$location', function
 
   var factory = {
     exampleText: textVar,
-    exampleFunction : function(){
+    exampleFunction: function(){
       return factoryFunction();
     },
     getUser: function() {
