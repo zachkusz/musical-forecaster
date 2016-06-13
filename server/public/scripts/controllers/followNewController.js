@@ -1,13 +1,8 @@
 app.controller('FollowNewController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory', function($scope, $http, $window, $location, LoginAndLandingFactory) {
   console.log('followNew controller running');
 
-
-  // if (LoginAndLandingFactory.user.userName != undefined){
-  //   LoginAndLandingFactory.getUser().then(function(){
-      var user_id = LoginAndLandingFactory.user.user_id;
-      console.log(user_id);
-  //   });
-  // }
+  var user_id = LoginAndLandingFactory.user.user_id;
+  console.log(user_id);
 
   //makes user's search a global scope
   $scope.query = '';
