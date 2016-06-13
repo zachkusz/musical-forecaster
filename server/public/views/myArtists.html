@@ -1,3 +1,23 @@
 <h1>View all your Artists</h1>
 
 <button ng-click="getArtists(user_id)">Get your Artists</button>
+
+<div class="row">
+  <h2>New Music Forecast</h3>
+</div>
+<div ng-repeat="newalbum in anticipatedAlbums">
+  <div class="row">
+    <h4 class="four columns">{{newalbum.date._d | date:'MM/dd/yyyy'}}</h4>
+    <h4 class="four columns">{{newalbum['artist-credit']['name-credit'].artist.name}}</h4>
+    <h4 class="four columns">{{newalbum.title}}</h4>
+  </div>
+</div>
+
+<div class="row">
+  <h2>Followed Artists</h3>
+</div>
+<div ng-repeat="artist in myArtists">
+  <div class="row">
+    <h6>{{artist}}</h6>
+  </div>
+</div>
