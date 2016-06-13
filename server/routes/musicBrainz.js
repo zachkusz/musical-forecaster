@@ -8,7 +8,7 @@ var urlencode = require('urlencode');
 router.get('/today', function (req, res) {
   var today = new Date().toISOString().slice(0,10);
   var req = {
-    url: 'http://musicbrainz.org/ws/2/release/?query=date:' + today,
+    url: 'http://musicbrainz.org/ws/2/release/?query=date:' + today + '&limit=100',
     headers: {
       'User-Agent': 'MusicalForecaster/version-inDevelopment (zskusz@gmail.com)'
     }

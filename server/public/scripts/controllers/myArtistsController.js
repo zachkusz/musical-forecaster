@@ -1,5 +1,7 @@
 app.controller('MyArtistsController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory', function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
+  var now = moment(); //current date to compare album dates with
+  $scope.anticipatedAlbums = []; //array of albums not yet out
   $scope.user_id = LoginAndLandingFactory.user.user_id;
   console.log($scope.user_id);
 
@@ -24,29 +26,47 @@ app.controller('MyArtistsController', ['$scope','$http', '$window', '$location',
   }//end getArtists
 
   getAlbums = function(artist) {
-    console.log('got albums for: ' + artist);
+    //console.log('got albums for: ' + artist);
+    getArtistName(artist);
+
     $http.get('/musicBrainz/albums/' + artist).then(
       function(response) {
         console.log(response);
+
         //converts xml to json
         var x2js = new X2JS();
         var xmlText = response.data;
         var jsonObj = x2js.xml_str2json( xmlText );
         console.log(jsonObj);
-        //extracting useful info from data-object
-        var albums = jsonObj.metadata['release-list'].release
+
+        //gets the array of albums
+        var albums = jsonObj.metadata['release-list'].release;
+
+        //fixes date on each album to compare time, pushes new albums to new array
+        albums.forEach(function(album){
+          if (album.date == null){
+            album.date = moment(album.date);
+            album.date = moment().subtract(1, 'months');
+          }
+          album.date = moment(album.date);
+
+          // pushes only new albums into upcoming array
+          if (album.date._d >= now){
+            $scope.anticipatedAlbums.push(album);
+          }
+        });
         console.log(albums);
-        // maybe use angular filter?
+        console.log($scope.anticipatedAlbums);
+
       }
     );
-  }
+  } //end of getAlbums
 
-  //removes repeat albums from an artists album list, pushes them to a new array to be displayed
-  function sortAlbums(albums) {
-    var sortedAlbums = [];
-    for(var i = 0; i <= albums.length; i++) {
-
-    }
-  }
+  //gets each artists name to use when appending dom
+  getArtistName = function(artist_id) {
+    $http.get('/follow/name/' + artist_id).then(function(response) {
+      console.log(response.data[0].artist_name);
+    });
+  }//end of getArtistName
 
 }]);

@@ -26,6 +26,27 @@ router.get('/:id', function (req, res) {
   });
 });
 
+//gets artist name
+router.get('/name/:id', function (req, res) {
+  var id = req.params.id;
+  console.log('user id: ', id);
+
+  pg.connect(connectionString, function(err, client, done) {
+    if (err) {
+      res.sendStatus(500);
+    }
+
+    client.query('SELECT artist_name FROM artists WHERE artist_id = $1',
+    [id],
+    function(err, result) {
+    done();
+
+    res.send(result.rows);
+
+    });
+  });
+});
+
 //adds artist to artsists table then adds them to bridge table
 router.post('/', function(req, res) {
   var follow = req.body;
