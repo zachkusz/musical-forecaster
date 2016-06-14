@@ -3,21 +3,32 @@
 <button ng-click="getArtists(user_id)">Get your Artists</button>
 
 <div class="row">
-  <h2>New Music Forecast</h3>
-</div>
-<div ng-repeat="newalbum in anticipatedAlbums">
-  <div class="row">
-    <h4 class="four columns">{{newalbum.date._d | date:'MM/dd/yyyy'}}</h4>
-    <h4 class="four columns">{{newalbum['artist-credit']['name-credit'].artist.name}}</h4>
-    <h4 class="four columns">{{newalbum.title}}</h4>
-  </div>
+  <h2 class="six columns">New Music Forecast</h3>
+  <select class="two columns offset-by-four" ng-model="sorting">
+    <option ng-model="sorting" value="date">Date</option>
+    <option ng-model="sorting" value="artist">Artist Name</option>
+    <option ng-model="sorting" value="album">Album Name</option>
+  </select>
 </div>
 
-<div class="row">
-  <h2>Followed Artists</h3>
-</div>
-<div ng-repeat="artist in myArtists">
+<article class="Row">
+<section ng-repeat="newalbum in anticipatedAlbums | orderBy : sorting">
+  <section class="forecast">
+    <img class="album-image" src="../styles/images/sunnyresize.jpg"></img>
+    <h6 class="date" name="date">{{newalbum.date._d | date:'MM/dd/yyyy'}}</h6>
+    <h6 class="artist" name="artist">{{newalbum['artist-credit']['name-credit'].artist.name}}</h6>
+    <h6 class="album" name="album">{{newalbum.title}}</h6>
+  </section>
+</section>
+</article>
+
+<div class="artists-list">
   <div class="row">
-    <h6>{{artist}}</h6>
+    <h6 class="three columns">Followed Artists</h6>
+  </div>
+  <div ng-repeat="artist in myArtists | orderBy : artist">
+    <div class="row">
+      <p class="three columns">{{artist}}</p>
+    </div>
   </div>
 </div>

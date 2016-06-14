@@ -1,3 +1,77 @@
+/*ipad*/
+@media screen and (min-width: 768px) {
+  body {
+    background-image: url('./images/06-Late-Afternoon.png');
+    position: fixed;
+    background-size: 768px auto;
+    background-attachment: fixed;
+  }
+}
+/*laptop and computer */
+@media screen and (min-width: 1200px) {
+  body {
+    background-image: url('./images/06-Late-Afternoon.png');
+    position: fixed;
+    background-size: 1200px 750px;
+    background-attachment: fixed;
+  }
+}
+
+main {
+  background: rgba(255,255,255,0.5);
+  border-radius: 6px;
+}
+
 h1 {
   color: orange;
+}
+
+section {
+  display: inline-block;
+}
+
+.artists-list, .forecast {
+  border: 1px solid black;
+  border-radius: 6px;
+}
+
+.Row {
+  display: table;
+  width: 100%;
+}
+
+.forecast {
+  display: table;
+  width: 210px;
+  height: 310px;
+  margin: 20px 8px;
+}
+/*album-iamge date artist album all used in album card in Radar page*/
+.album-image {
+  display: block;
+  height: 140px;
+  width: 140px;
+  margin: 12px auto 6px auto;
+  background-color: #86E0FF;
+}
+
+.date {
+  display: block;
+  text-align: center;
+  height: 30px;
+  width: 180px;
+  margin: 6px auto 6px auto;
+}
+
+.artist, .album {
+  display: block;
+  text-align: center;
+  height: 40px;
+  width: 180px;
+  margin: 6px auto 6px auto;
+}
+
+a, button {
+  color: #4C92F0;
+  text-decoration: none;
 }
