@@ -3,17 +3,18 @@ app.controller('MyArtistsController', ['$scope','$http', '$window', '$location',
   var now = moment(); //current date to compare album dates with
   $scope.myArtists = []; // array of all the bands the user follows
   $scope.anticipatedAlbums = []; //array of albums not yet out
+  //$scope.sortedAlbums = []; //array of albums filtered for repeats. is broken :(
 
   $scope.user_id = LoginAndLandingFactory.user.user_id;
   console.log($scope.user_id);
 
-  console.log('myartists controller running');
-  LoginAndLandingFactory.getUser;
+  // LoginAndLandingFactory.getUser;
   var user_id = LoginAndLandingFactory.user.user_id
   console.log(user_id);
 
+  getArtists();
 
-  $scope.getArtists = function() {
+  function getArtists() {
     console.log($scope.user_id);
     $http.get('/follow/' + $scope.user_id).then(function(response) {
       console.log(response);
@@ -38,26 +39,13 @@ app.controller('MyArtistsController', ['$scope','$http', '$window', '$location',
         var x2js = new X2JS();
         var xmlText = response.data;
         var jsonObj = x2js.xml_str2json( xmlText );
-        console.log(jsonObj);
 
         //gets the array of albums
         var albums = jsonObj.metadata['release-list'].release;
 
-        //fixes date on each album to compare time, pushes new albums to new array
-        albums.forEach(function(album){
-          //sets arbitrary old date for albums without a date so they don't display as new
-          if (album.date == null){
-            album.date = moment();
-            album.date = moment().subtract(1, 'months');
-          }
-          album.date = moment(album.date);
+        sortOutUpcommingAlbums(albums);
+        //removeDuplicates($scope.anticipatedAlbums); is broken :(
 
-          // pushes only new albums into upcoming array
-          if (album.date._d >= now){
-            $scope.anticipatedAlbums.push(album);
-            // moment(album.date).format('ddd, MMM Do YYYY,');
-          }
-        });
         console.log(albums);
         console.log($scope.anticipatedAlbums);
 
@@ -70,13 +58,34 @@ app.controller('MyArtistsController', ['$scope','$http', '$window', '$location',
     $http.get('/follow/name/' + artist_id).then(function(response) {
       $scope.myArtists.push(response.data[0].artist_name);
     });
-  }//end of getArtistName
+  }
 
-  //remove artists from overall list if they were added to upcoming list
-  function sortArtists(allArtists) {
-    for (var i = 0; i < allArtists.length; i++) {
+  function sortOutUpcommingAlbums(albums) {
+    for (var j = 0; j < albums.length; j++) {
+      //if album has no date it is given arbitrary old date - to keep it off of the upcoming list
+      if (albums[j].date == null) {
+        albums[j].date = moment();
+        albums[j].date = moment().subtract(1, 'months');
+      }
+      albums[j].date = moment(albums[j].date);
 
+      // pushes only new albums into upcoming array
+      if (albums[j].date._d >= now) {
+        $scope.anticipatedAlbums.push(albums[j]);
+      }
     }
+  }
+
+  //is broken :(
+  function removeDuplicates(albums) {
+    for (var i = 0; i < albums.length; i++) {
+      if (i == 0) {
+        $scope.sortedAlbums.push(albums[i]);
+      } else if (albums[i].title != $scope.sortedAlbums[$scope.sortedAlbums.length - 1].title) {
+        $scope.sortedAlbums.push(albums[i]);
+      }
+    }
+    console.log('sortedalbums', $scope.sortedAlbums);
   }
 
 }]);

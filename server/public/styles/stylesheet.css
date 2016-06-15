@@ -29,41 +29,40 @@
 header {
   background-color:
 }
-
 main {
   background: rgba(255,255,255,0.5);
   border-radius: 6px;
 }
-
 h1, h2, h3, h4, h5, h6, p {
   text-align: center;
 }
-
 h1 {
   color: orange;
 }
-
 section {
   display: inline-block;
 }
+a, button {
+  color: #4C92F0;
+  text-decoration: none;
+}
 
+
+/*myartists/on your radar*/
 .artists-list, .forecast {
   border: 1px solid black;
   border-radius: 6px;
 }
-
 .Row {
   display: table;
   width: 100%;
 }
-
 .forecast {
   display: table;
   width: 210px;
   height: 310px;
   margin: 20px 12px;
 }
-
 /*album-iamge date artist album all used in album card in Radar page*/
 .album-image {
   display: block;
@@ -72,26 +71,25 @@ section {
   margin: 12px auto 6px auto;
   background-color: #86E0FF;
 }
-.date {
-  display: block;
-  text-align: center;
-  height: 30px;
-  width: 180px;
-  margin: 6px auto 6px auto;
-}
-.artist, .album {
+.artist, .album, .date {
   display: block;
   text-align: center;
   height: 40px;
   width: 180px;
   margin: 6px auto 6px auto;
+  font-weight: bold;
+}
+.date {
+  height: 30px;
+}
+.info {
+  text-decoration: underline;
+}
+.list {
+  text-align: left;
+  padding-left: 6px;
 }
 
-
-a, button {
-  color: #4C92F0;
-  text-decoration: none;
-}
 
 /*today's forecast/landing page*/
 .user-info {

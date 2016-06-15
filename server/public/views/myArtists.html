@@ -3,17 +3,10 @@
   <p class="two columns offset-by-seven right">Tracking _ artists.</p>
 </div>
 
-<h1>View all your Artists</h1>
-
-<button ng-click="getArtists(user_id)">Get your Artists</button>
+<h1>Followed Artists</h1>
 
 <div class="row">
   <h2 class="six columns">New Music Forecast</h3>
-  <select class="two columns offset-by-four" ng-model="sorting">
-    <option ng-model="sorting" value="date">Date</option>
-    <option ng-model="sorting" value="artist">Artist Name</option>
-    <option ng-model="sorting" value="album">Album Name</option>
-  </select>
 </div>
 
 <!-- empty div used while loading followed artists-->
@@ -22,23 +15,21 @@
 </div>
 
 <article class="Row">
-<section ng-repeat="newalbum in anticipatedAlbums | orderBy : sorting">
-  <section class="forecast">
-    <img class="album-image" src="../styles/images/sunnyresize.jpg" />
-    <h6 class="date" name="date">{{newalbum.date._d | date:'MM/dd/yyyy'}}</h6>
-    <h6 class="artist" name="artist">{{newalbum['artist-credit']['name-credit'].artist.name}}</h6>
-    <h6 class="album" name="album">{{newalbum.title}}</h6>
+  <section ng-repeat="newalbum in anticipatedAlbums | orderBy : date">
+    <section class="forecast">
+      <img class="album-image" src="../styles/images/sunnyresize.jpg" />
+      <p class="date" name="date">{{newalbum.date._d | date:'MM/dd/yyyy'}}</p>
+      <p class="info">Artist:</p>
+      <p class="artist" name="artist">{{newalbum['artist-credit']['name-credit'].artist.name}}</p>
+      <p class="info">Album:</p>
+      <p class="album" name="album">{{newalbum.title}}</p>
+    </section>
   </section>
-</section>
 </article>
 
-<div class="artists-list">
-  <div class="row">
-    <h6 class="three columns">Followed Artists</h6>
-  </div>
+<section class="artists-list">
+  <h6 >Followed Artists</h6>
   <div ng-repeat="artist in myArtists | orderBy : artist">
-    <div class="row">
-      <p class="three columns">{{artist}}</p>
-    </div>
+    <p class="list">{{artist}}</p>
   </div>
-</div>
+</section>

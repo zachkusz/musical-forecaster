@@ -8,15 +8,15 @@
 </div>
 
 <div class="row header">
-  <h4 class="three columns offset-by-one">Artist</h4>
-  <h4 class="three columns">Title</h4>
-  <h4 class="three columns">Record Label</h4>
+  <h4 class="four columns offset-by-one">Artist</h4>
+  <h4 class="four columns">Title</h4>
+  <h4 class="four columns">Record Label</h4>
 </div>
 
-<div class="todaysalbums" ng-repeat="album in albums">
+<div class="todaysalbums" ng-repeat="album in sortedAlbums">
   <div class="row">
-    <h5 class="three columns offset-by-one">{{album['artist-credit']['name-credit'].artist.name}}</h5>
-    <h5 class="three columns">{{album.title}}</h5>
-    <h5 class="three columns">{{album['label-info-list']['label-info'].label.name}}</h5>
+    <h5 class="four columns">{{album['artist-credit']['name-credit'].artist.name}}</h5>
+    <h5 class="four columns">{{album.title}}</h5>
+    <h5 class="four columns">{{album['label-info-list']['label-info'].label.name}}</h5>
   </div>
 </div>
