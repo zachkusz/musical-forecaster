@@ -1,3 +1,8 @@
+<div class="row user-info">
+  <p class="three columns">Signed in as: {{userName}}</p>
+  <p class="two columns offset-by-seven right">Tracking _ artists.</p>
+</div>
+
 <h1>View all your Artists</h1>
 
 <button ng-click="getArtists(user_id)">Get your Artists</button>
@@ -11,10 +16,15 @@
   </select>
 </div>
 
+<!-- empty div used while loading followed artists-->
+<div class="loading">
+  <img src="loading-spinner.png" />
+</div>
+
 <article class="Row">
 <section ng-repeat="newalbum in anticipatedAlbums | orderBy : sorting">
   <section class="forecast">
-    <img class="album-image" src="../styles/images/sunnyresize.jpg"></img>
+    <img class="album-image" src="../styles/images/sunnyresize.jpg" />
     <h6 class="date" name="date">{{newalbum.date._d | date:'MM/dd/yyyy'}}</h6>
     <h6 class="artist" name="artist">{{newalbum['artist-credit']['name-credit'].artist.name}}</h6>
     <h6 class="album" name="album">{{newalbum.title}}</h6>

@@ -19,6 +19,7 @@
   "author": "Zach Kusz",
   "license": "ISC",
   "dependencies": {
+    "angular-animate": "^1.5.6",
     "bcrypt": "^0.8.6",
     "body-parser": "^1.15.1",
     "cached-request": "^1.0.0",

@@ -22,6 +22,10 @@ app.config(['$routeProvider', function($routeProvider) {
   			templateUrl: '/views/followNew.html',
   			controller: "FollowNewController"
   		})
+      .when('/logout', {
+        templateUrl: '/views/logout.html',
+        controller: "LogoutController"
+      })
   		.otherwise({
   			redirectTo: 'login'
   		})
