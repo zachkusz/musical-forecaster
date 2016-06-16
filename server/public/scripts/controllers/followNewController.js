@@ -1,8 +1,10 @@
-app.controller('FollowNewController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory', function($scope, $http, $window, $location, LoginAndLandingFactory) {
+app.controller('FollowNewController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory',
+function($scope, $http, $window, $location, LoginAndLandingFactory) {
   console.log('followNew controller running');
 
+  $scope.userName = LoginAndLandingFactory.user.userName;
   var user_id = LoginAndLandingFactory.user.user_id;
-  console.log(user_id);
+  console.log($scope.userName);
 
   //makes user's search a global scope
   $scope.query = '';
@@ -22,7 +24,8 @@ app.controller('FollowNewController', ['$scope','$http', '$window', '$location',
         console.log(jsonObj.metadata['artist-list'].artist);
         $scope.artists = jsonObj.metadata['artist-list'].artist;
         //displays result count
-        $scope.found = 'Displaying top 25 of ' + jsonObj.metadata['artist-list']._count + ' results.';
+        $scope.found = 'Displaying top ' + $scope.artists.length +
+        ' of ' + jsonObj.metadata['artist-list']._count + ' results.';
       }
     );
   }//end of search

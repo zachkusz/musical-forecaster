@@ -1,29 +1,30 @@
-<div class="row user-info">
-  <p class="three columns">Signed in as: {{userName}}</p>
-  <p class="two columns offset-by-seven right">Tracking _ artists.</p>
-</div>
+<p class="description">Search for your favorite bands. Follow them and see all their upcoming albums as soon as they're announced!</p>
 
-<h1>Track More Artists!</h1>
-
-<form>
-  <h3>Search</h3>
-  <label for="artist">Artist/Band Name:</label>
+<form class="row">
+  <h3 class="three columns offset-by-one search-title">Artist/Band Name:</h3>
   <input ng-model="query"type="text" name="artist" />
   <button ng-click="search()">Search</button>
-  <h6 ng-show="artists != null">{{found}}</h6>
+  <div class="">
+    <h6 class="search" ng-show="artists != null">{{found}}</h6>
+  </div>
 </form>
 
+
 <div class="row">
-  <h4 class="three columns">Name:</h4>
-  <h4 class="three columns">Tag:</h4>
-  <h4 class="three columns">Origin Date:</h4>
+  <h4 class="two columns offset-by-one search underline">Name</h4>
+  <h4 class="two columns search underline">Disambiguation</h4>
+  <h4 class="two columns search underline">Area</h4>
+  <h4 class="two columns search underline">Origin Date</h4>
+  <h4 class="two columns search underline">Add To Your List</h4>
+
 </div>
 
 <div ng-repeat="artist in artists">
   <div class="row">
-    <h6 class="three columns">{{artist.name}}</h6>
-    <h6 class="three columns">{{artist.disambiguation}}</h6>
-    <h6 class="three columns">{{artist['life-span'].begin}}</h6>
-    <button ng-click="follow(artist._id, artist.name)">Follow</button>
+    <h6 class="two columns offset-by-one search">{{artist.name}}</h6>
+    <h6 class="two columns search">{{artist.disambiguation}}</h6>
+    <h6 class="two columns search">{{artist.area.name}}</h6>
+    <h6 class="two columns search">{{artist['life-span'].begin}}</h6>
+    <button class="two columns follow" ng-click="follow(artist._id, artist.name)">Follow</button>
   </div>
 </div>

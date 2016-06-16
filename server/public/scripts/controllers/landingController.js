@@ -1,4 +1,5 @@
-app.controller('LandingController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory', function($scope, $http, $window, $location, LoginAndLandingFactory) {
+app.controller('LandingController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory',
+function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
   $scope.userName = LoginAndLandingFactory.user.userName;
   console.log($scope.userName);

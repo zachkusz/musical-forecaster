@@ -22,12 +22,14 @@
 }
 
 
+nav {
+  background-color: #59767F;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
 .title {
   font-family: arcade;
   font-size: 80px;
-}
-header {
-  background-color:
 }
 main {
   background: rgba(255,255,255,0.5);
@@ -38,13 +40,26 @@ h1, h2, h3, h4, h5, h6, p {
 }
 h1 {
   color: orange;
+  margin-top: 24px;
+}
+h3 {
+  color: #59767F;
 }
 section {
   display: inline-block;
 }
-a, button {
-  color: #4C92F0;
+a {
+  color: #D5F7FF;
   text-decoration: none;
+  padding: 4px;
+  font-size: 14px;
+  text-align: center;
+}
+a:hover {
+  color: orange;
+}
+.underline {
+  text-decoration: underline;
 }
 
 
@@ -53,6 +68,7 @@ a, button {
   border: 1px solid black;
   border-radius: 6px;
 }
+
 .Row {
   display: table;
   width: 100%;
@@ -63,6 +79,13 @@ a, button {
   height: 310px;
   margin: 20px 12px;
 }
+.artists-list {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: inline-block;
+  background-color: #59767F;
+  box-shadow: 2px 3px 4px;
+}
 /*album-iamge date artist album all used in album card in Radar page*/
 .album-image {
   display: block;
@@ -70,6 +93,7 @@ a, button {
   width: 140px;
   margin: 12px auto 6px auto;
   background-color: #86E0FF;
+  border: 2px solid #59767F;
 }
 .artist, .album, .date {
   display: block;
@@ -87,7 +111,9 @@ a, button {
 }
 .list {
   text-align: left;
-  padding-left: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+  color: #fff;
 }
 
 
@@ -100,4 +126,22 @@ p {
 }
 .right {
   text-align: right;
+}
+
+
+/* search page*/
+.search {
+  text-align: left;
+  font-size: 16px;
+}
+.search-title {
+  font-size: 26px;
+  padding-top: 2px;
+}
+.follow {
+  font-size: 16px;
+}
+.description {
+  padding: 12px;
+  font-weight: bold;
 }

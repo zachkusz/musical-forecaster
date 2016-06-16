@@ -1,12 +1,5 @@
-<div class="row user-info">
-  <p class="three columns">Signed in as: {{userName}}</p>
-  <p class="two columns offset-by-seven right">Tracking _ artists.</p>
-</div>
-
-<h1>Followed Artists</h1>
-
 <div class="row">
-  <h2 class="six columns">New Music Forecast</h3>
+  <h3 class="twelve columns">New Music Forecast</h3>
 </div>
 
 <!-- empty div used while loading followed artists-->
@@ -27,8 +20,8 @@
   </section>
 </article>
 
-<section class="artists-list">
-  <h6 >Followed Artists</h6>
+<section class="artists-list forecast">
+  <h6 class="underline">Followed Artists</h6>
   <div ng-repeat="artist in myArtists | orderBy : artist">
     <p class="list">{{artist}}</p>
   </div>

@@ -1,14 +1,15 @@
-app.controller('MyArtistsController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory', function($scope, $http, $window, $location, LoginAndLandingFactory) {
+app.controller('MyArtistsController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory',
+function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
   var now = moment(); //current date to compare album dates with
   $scope.myArtists = []; // array of all the bands the user follows
   $scope.anticipatedAlbums = []; //array of albums not yet out
   //$scope.sortedAlbums = []; //array of albums filtered for repeats. is broken :(
 
+  $scope.userName = LoginAndLandingFactory.user.userName;
   $scope.user_id = LoginAndLandingFactory.user.user_id;
-  console.log($scope.user_id);
+  console.log($scope.userName);
 
-  // LoginAndLandingFactory.getUser;
   var user_id = LoginAndLandingFactory.user.user_id
   console.log(user_id);
 

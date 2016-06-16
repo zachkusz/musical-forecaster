@@ -1,4 +1,5 @@
-app.controller('LogoutController', ['$scope', '$http', '$window', '$location', 'LoginAndLandingFactory', function($scope, $http, $window, $location, LoginAndLandingFactory) {
+app.controller('LogoutController', ['$scope', '$http', '$window', '$location', 'LoginAndLandingFactory',
+function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
   logout();
 
