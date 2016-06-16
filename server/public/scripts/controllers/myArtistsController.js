@@ -2,6 +2,7 @@ app.controller('MyArtistsController', ['$scope','$http', '$window', '$location',
 function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
   var now = moment(); //current date to compare album dates with
+  var int = 0; //used to count how many artists are loaded and set preogress bar
   $scope.myArtists = []; // array of all the bands the user follows
   $scope.anticipatedAlbums = []; //array of albums not yet out
   //$scope.sortedAlbums = []; //array of albums filtered for repeats. is broken :(
@@ -16,20 +17,20 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
   getArtists();
 
   function getArtists() {
-    console.log($scope.user_id);
     $http.get('/follow/' + $scope.user_id).then(function(response) {
       console.log(response);
-      $scope.artists = response.data;
+      var artists = response.data;
+      setProgress(artists);
       //loops through to get albums for each artist
-      response.data.forEach(function(artist){
-        getArtistName(artist.artist_id);
-        getAlbums(artist.artist_id);
-      });
+      for (var z = 0; z < artists.length; z++) {
+        getArtistName(artists[z].artist_id);
+        getAlbums(artists[z].artist_id, z);
+      }
 
     });
   }//end getArtists
 
-  getAlbums = function(artist) {
+  getAlbums = function(artist, z) {
     console.log('got albums for: ' + artist);
 
     $http.get('/musicBrainz/albums/' + artist).then(
@@ -49,7 +50,10 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
         console.log(albums);
         console.log($scope.anticipatedAlbums);
-
+        if (z + 1 == int) {
+          bar.animate(1.0);
+          console.log('on last artist, setting loading bar to 1.0');
+        }
       }
     );
   } //end of getAlbums
@@ -78,15 +82,33 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
   }
 
   //is broken :(
-  function removeDuplicates(albums) {
-    for (var i = 0; i < albums.length; i++) {
-      if (i == 0) {
-        $scope.sortedAlbums.push(albums[i]);
-      } else if (albums[i].title != $scope.sortedAlbums[$scope.sortedAlbums.length - 1].title) {
-        $scope.sortedAlbums.push(albums[i]);
-      }
-    }
-    console.log('sortedalbums', $scope.sortedAlbums);
+  // function removeDuplicates(albums) {
+  //   for (var i = 0; i < albums.length; i++) {
+  //     if (i == 0) {
+  //       $scope.sortedAlbums.push(albums[i]);
+  //     } else if (albums[i].title != $scope.sortedAlbums[$scope.sortedAlbums.length - 1].title) {
+  //       $scope.sortedAlbums.push(albums[i]);
+  //     }
+  //   }
+  //   console.log('sortedalbums', $scope.sortedAlbums);
+  // }
+
+  var bar = new ProgressBar.Line(container, {
+  strokeWidth: 4,
+  easing: 'easeOut',
+  duration: 1000,
+  color: '#FFA500',
+  trailColor: '#eee',
+  trailWidth: 1,
+  svgStyle: {width: '100%', height: '100%'}
+  });
+  bar.animate(1.0, {
+    duration: 15000
+  });  // Number from 0.0 to 1.0
+
+  function setProgress(artists) {
+    int = artists.length;
+    console.log(int);
   }
 
 }]);

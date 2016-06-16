@@ -3,11 +3,18 @@
 </div>
 
 <!-- empty div used while loading followed artists-->
-<div class="loading">
-  <img src="loading-spinner.png" />
+<div class="row">
+  <figure id="container"></figure>
 </div>
 
 <article class="Row">
+  <section class="artists-list forecast">
+    <h6 class="underline white">Followed Artists</h6>
+    <div ng-repeat="artist in myArtists | orderBy : artist">
+      <p class="list">{{artist}}</p>
+    </div>
+  </section>
+
   <section ng-repeat="newalbum in anticipatedAlbums | orderBy : date">
     <section class="forecast">
       <img class="album-image" src="../styles/images/sunnyresize.jpg" />
@@ -19,10 +26,3 @@
     </section>
   </section>
 </article>
-
-<section class="artists-list forecast">
-  <h6 class="underline">Followed Artists</h6>
-  <div ng-repeat="artist in myArtists | orderBy : artist">
-    <p class="list">{{artist}}</p>
-  </div>
-</section>

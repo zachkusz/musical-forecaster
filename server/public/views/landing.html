@@ -8,10 +8,10 @@
   <h5 class="four columns underline">Record Label</h5>
 </div>
 
-<div class="todaysalbums" ng-repeat="album in sortedAlbums">
+<div class="todaysalbums" ng-repeat="album in sortedAlbums" ng-class="{even: $even, odd: $odd}">
   <div class="row">
-    <h5 class="four columns">{{album['artist-credit']['name-credit'].artist.name}}</h5>
-    <h5 class="four columns">{{album.title}}</h5>
-    <h5 class="four columns">{{album['label-info-list']['label-info'].label.name}}</h5>
+    <h5 class="four columns today">{{album['artist-credit']['name-credit'].artist.name}}</h5>
+    <h5 class="four columns today">{{album.title}}</h5>
+    <h5 class="four columns today">{{album['label-info-list']['label-info'].label.name}}</h5>
   </div>
 </div>

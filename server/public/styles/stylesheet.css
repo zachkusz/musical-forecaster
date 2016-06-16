@@ -40,10 +40,12 @@ h1, h2, h3, h4, h5, h6, p {
 }
 h1 {
   color: orange;
-  margin-top: 24px;
+  margin-top: 26px;
+  margin-bottom: 0px;
 }
 h3 {
   color: #59767F;
+  padding: 12px 6px 12px 6px;
 }
 section {
   display: inline-block;
@@ -58,10 +60,18 @@ a {
 a:hover {
   color: orange;
 }
+.log-reg {
+  color: #59767f;
+}
 .underline {
   text-decoration: underline;
 }
-
+.white {
+  color: #fff;
+}
+.even {
+  background: rgba(255,255,255,0.25);
+}
 
 /*myartists/on your radar*/
 .artists-list, .forecast {
@@ -77,14 +87,16 @@ a:hover {
   display: table;
   width: 210px;
   height: 310px;
-  margin: 20px 12px;
+  margin: 20px 0 0 20px;
+  box-shadow: 2px 3px 5px;
+  background-color: #59767F;
 }
 .artists-list {
+  height: 350px;
   overflow-y: scroll;
   overflow-x: hidden;
   display: inline-block;
-  background-color: #59767F;
-  box-shadow: 2px 3px 4px;
+  box-shadow: 2px 3px 5px grey;
 }
 /*album-iamge date artist album all used in album card in Radar page*/
 .album-image {
@@ -93,7 +105,7 @@ a:hover {
   width: 140px;
   margin: 12px auto 6px auto;
   background-color: #86E0FF;
-  border: 2px solid #59767F;
+  border: 2px solid #000;
 }
 .artist, .album, .date {
   display: block;
@@ -102,12 +114,14 @@ a:hover {
   width: 180px;
   margin: 6px auto 6px auto;
   font-weight: bold;
+  color: orange;
 }
 .date {
   height: 30px;
 }
 .info {
   text-decoration: underline;
+  color: white;
 }
 .list {
   text-align: left;
@@ -115,7 +129,10 @@ a:hover {
   padding-right: 12px;
   color: #fff;
 }
-
+#container {
+  margin: 20px;
+  height: 8px;
+}
 
 /*today's forecast/landing page*/
 .user-info {
@@ -127,12 +144,18 @@ p {
 .right {
   text-align: right;
 }
+.today {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
 
 
 /* search page*/
 .search {
   text-align: left;
   font-size: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 .search-title {
   font-size: 26px;

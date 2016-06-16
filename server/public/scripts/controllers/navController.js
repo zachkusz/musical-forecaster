@@ -6,7 +6,6 @@ console.log('NavController running');
 
   $scope.$on('$routeChangeSuccess', function () {
     var path = $location.path();
-    console.log(path);
     if (path === '/landing') {
       $scope.show = true;
     } else if (path === '/myArtists') {
