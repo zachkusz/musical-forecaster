@@ -37,6 +37,7 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
             $scope.artists[i].isClicked = false;
             $scope.artists[i].alreadyFollowed = false;
           }
+          console.log('list after alreadyFollowed added', $scope.artists);
         }
       );
     });
@@ -49,15 +50,21 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
     artist.isClicked = true;
 
     //checks if this artist is already in the artist list for any user
-    for (y = 0; y < allArtists.length; y++ ){
-      if (allArtists[y].artist_id == artist.artist_id) {
-        //send to join table weird path
+    for (var y = 0; y < allArtists.length; y++ ) {
+      if (allArtists[y].artist_id == artist._id) {
+        //send to weird path
         artist.alreadyFollowed = true;
+        console.log('sent to wierd path');
       }
     }
 
     if (artist.alreadyFollowed == true) {
       //weird path
+      $http.post('/follow/repeat/artist', follow).then(
+        function(response) {
+          console.log('followed on the weird path', response);
+        }
+      );
     } else {
       //happy path
       $http.post('/follow', follow).then(
@@ -70,8 +77,8 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
   function getArtists() {
     return $http.get('/follow/artists/all').then(function(response) {
-      console.log(response);
-      var allArtists = response.data;
+      allArtists = response.data;
+      console.log('allArtists after get call', allArtists)
     });
   }//end getArtists
 

@@ -64,7 +64,7 @@ router.get('/name/:id', function (req, res) {
   });
 });
 
-//adds artist to artsists table then adds them to bridge table
+//adds artist to artsists table then adds them to bridge table happy path
 router.post('/', function(req, res) {
   var follow = req.body;
 
@@ -92,6 +92,30 @@ router.post('/', function(req, res) {
                     res.sendStatus(201);
                   });
                 }
+    );
+  });
+});
+
+
+//other/weird path
+router.post('/repeat/artist', function(req, res) {
+  var follow = req.body;
+
+  pg.connect(connectionString, function(err, client, done) {
+    if (err) {
+      res.sendStatus(500);
+    }
+
+    client.query('INSERT INTO user_artist (user_id, artist_id) ' +
+      'VALUES ($1, $2)', [follow.user_id, follow.id],
+      function(err, result) {
+        done();
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+        res.sendStatus(201);
+      }
     );
   });
 });
