@@ -14,7 +14,7 @@ router.get('/today', function (req, res) {
   var options = {
     url: 'http://musicbrainz.org/ws/2/release/?query=date:' + today + '&limit=100',
     headers: {
-      'User-Agent': 'MusicalForecaster/version-inDevelopment (zskusz@gmail.com)'
+      'User-Agent': 'MusicalForecaster/1.0.0 (zskusz@gmail.com)'
     },
     ttl: 60000
   };
@@ -32,7 +32,7 @@ router.get('/search/:query', function (req, res) {
   var req = {
     url: 'http://musicbrainz.org/ws/2/artist/?query=artist:' + query,
     headers: {
-      'User-Agent': 'MusicalForecaster/version-inDevelopment (zskusz@gmail.com)'
+      'User-Agent': 'MusicalForecaster/1.0.0 (zskusz@gmail.com)'
     }
   };
   request(req, function(err, response, body) {
@@ -51,7 +51,7 @@ router.get('/albums/:artist', function (req, res) {
   var options = {
     url: 'http://musicbrainz.org/ws/2/release?artist=' + artist + '&status=official&type=album&limit=100&inc=artist-credits',
     headers: {
-      'User-Agent': 'MusicalForecaster/version-inDevelopment (zskusz@gmail.com)'
+      'User-Agent': 'MusicalForecaster/1.0.0 (zskusz@gmail.com)'
     },
     ttl: 60000
   };

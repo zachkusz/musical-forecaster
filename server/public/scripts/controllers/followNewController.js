@@ -1,45 +1,78 @@
 app.controller('FollowNewController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory',
 function($scope, $http, $window, $location, LoginAndLandingFactory) {
   console.log('followNew controller running');
-
+  getArtists();
   $scope.userName = LoginAndLandingFactory.user.userName;
   var user_id = LoginAndLandingFactory.user.user_id;
+  var allArtists = [];
   console.log($scope.userName);
+  $scope.query = ''; //makes user's search a global scope
 
-  //makes user's search a global scope
-  $scope.query = '';
-
-  //user searches for a band to follow
   $scope.search = function() {
+    $scope.artists = []; //resets the array for every search
     console.log('searched for: ' + $scope.query);
-    $http.get('/musicBrainz/search/' + $scope.query).then(
-      function(response) {
-        console.log(response);
-        //converts xml to json
-        var x2js = new X2JS();
-        var xmlText = response.data;
-        var jsonObj = x2js.xml_str2json( xmlText );
-        console.log(jsonObj);
-        //extracting useful info from data-object
-        console.log(jsonObj.metadata['artist-list'].artist);
-        $scope.artists = jsonObj.metadata['artist-list'].artist;
-        //displays result count
-        $scope.found = 'Displaying top ' + $scope.artists.length +
-        ' of ' + jsonObj.metadata['artist-list']._count + ' results.';
-      }
-    );
+    getArtists().then(function() {
+      $http.get('/musicBrainz/search/' + $scope.query).then(
+        function(response) {
+          console.log(response);
+          //converts xml to json
+          var x2js = new X2JS();
+          var xmlText = response.data;
+          var jsonObj = x2js.xml_str2json( xmlText );
+
+          //checks for errors  and displays result count
+          if (jsonObj == null || jsonObj.metadata == undefined || jsonObj.metadata['artist-list'].artist == undefined) {
+            $scope.found = 'No results - try another search ' +
+            '(or MusicBrainz is just mad so try again)';
+          } else {
+            $scope.found = 'Displaying top ' +
+            jsonObj.metadata['artist-list'].artist.length +
+            ' of ' + jsonObj.metadata['artist-list']._count + ' results.';
+          }
+
+          //extracting useful info from data-object
+          $scope.artists = jsonObj.metadata['artist-list'].artist;
+
+          for (var i = 0; i < $scope.artists.length; i++) {
+            $scope.artists[i].isClicked = false;
+            $scope.artists[i].alreadyFollowed = false;
+          }
+        }
+      );
+    });
+
   }//end of search
 
   //user clicks on a band to follow it
-  $scope.follow = function(id, name) {
-    var follow = {id: id, name: name, user_id: user_id};
-    console.log('followed ', follow);
+  $scope.follow = function(artist) {
+    var follow = {id: artist._id, name: artist.name, user_id: user_id};
+    artist.isClicked = true;
 
-    $http.post('/follow', follow).then(
-      function(response) {
-        console.log(response);
+    //checks if this artist is already in the artist list for any user
+    for (y = 0; y < allArtists.length; y++ ){
+      if (allArtists[y].artist_id == artist.artist_id) {
+        //send to join table weird path
+        artist.alreadyFollowed = true;
       }
-    );
+    }
+
+    if (artist.alreadyFollowed == true) {
+      //weird path
+    } else {
+      //happy path
+      $http.post('/follow', follow).then(
+        function(response) {
+          console.log('followed on the happy path', response);
+        }
+      );
+    }
   }//end of follow
+
+  function getArtists() {
+    return $http.get('/follow/artists/all').then(function(response) {
+      console.log(response);
+      var allArtists = response.data;
+    });
+  }//end getArtists
 
 }]);

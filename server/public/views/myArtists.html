@@ -2,6 +2,11 @@
   <h3 class="twelve columns">New Music Forecast</h3>
 </div>
 
+<div class="row" ng-if="isError == true">
+  <h5 class="six columns offset-by-one">{{error}}</h5>
+  <button class="two columns" ng-click="refresh(failed)">Reload</button>
+</div>
+
 <!-- empty div used while loading followed artists-->
 <div class="row">
   <figure id="container"></figure>
@@ -15,7 +20,7 @@
     </div>
   </section>
 
-  <section ng-repeat="newalbum in anticipatedAlbums | orderBy : date">
+  <section ng-repeat="newalbum in anticipatedAlbums | orderBy : 'date._d'">
     <section class="forecast">
       <img class="album-image" src="../styles/images/sunnyresize.jpg" />
       <p class="date" name="date">{{newalbum.date._d | date:'MM/dd/yyyy'}}</p>

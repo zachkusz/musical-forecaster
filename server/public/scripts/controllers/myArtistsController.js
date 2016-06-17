@@ -3,16 +3,11 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
   var now = moment(); //current date to compare album dates with
   var int = 0; //used to count how many artists are loaded and set preogress bar
-  $scope.myArtists = []; // array of all the bands the user follows
-  $scope.anticipatedAlbums = []; //array of albums not yet out
-  //$scope.sortedAlbums = []; //array of albums filtered for repeats. is broken :(
-
-  $scope.userName = LoginAndLandingFactory.user.userName;
+  $scope.isError = false; //used for angular error message
+  $scope.failed = []; //used to research for queries that filed to load
+  $scope.myArtists = []; // array of all the bands the user follows to append with
+  $scope.anticipatedAlbums = []; //array of albums not yet out to append with
   $scope.user_id = LoginAndLandingFactory.user.user_id;
-  console.log($scope.userName);
-
-  var user_id = LoginAndLandingFactory.user.user_id
-  console.log(user_id);
 
   getArtists();
 
@@ -31,8 +26,6 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
   }//end getArtists
 
   getAlbums = function(artist, z) {
-    console.log('got albums for: ' + artist);
-
     $http.get('/musicBrainz/albums/' + artist).then(
       function(response) {
         console.log(response);
@@ -42,16 +35,24 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
         var xmlText = response.data;
         var jsonObj = x2js.xml_str2json( xmlText );
 
+        //checks if musicbrainz refused any requests
+        if (jsonObj == null || jsonObj.metadata == undefined) {
+          $scope.isError = true;
+          $scope.failed.push(artist);
+          console.log('failed to load', artist);
+        }
+
         //gets the array of albums
         var albums = jsonObj.metadata['release-list'].release;
 
         sortOutUpcommingAlbums(albums);
-        //removeDuplicates($scope.anticipatedAlbums); is broken :(
 
         console.log(albums);
         console.log($scope.anticipatedAlbums);
         if (z + 1 == int) {
-          bar.animate(1.0);
+          bar.animate(1.0, {
+            easing: 'linear'
+          });
           console.log('on last artist, setting loading bar to 1.0');
         }
       }
@@ -63,6 +64,17 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
     $http.get('/follow/name/' + artist_id).then(function(response) {
       $scope.myArtists.push(response.data[0].artist_name);
     });
+  }
+
+  $scope.error = ':( MusicBrainz refused your freindship... \nKeep Trying!';
+  $scope.refresh = function(failedArray) {
+    $scope.isError = false;
+    var thisFailureInstance = failedArray.length;
+    console.log(failedArray);
+    for (var y = thisFailureInstance; y > 0; y--) {
+      getAlbums($scope.failed[y - 1], -2); //arbitrary number so as to not fuck with the loading bar
+      $scope.failed.pop();
+    }
   }
 
   function sortOutUpcommingAlbums(albums) {
@@ -81,21 +93,9 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
     }
   }
 
-  //is broken :(
-  // function removeDuplicates(albums) {
-  //   for (var i = 0; i < albums.length; i++) {
-  //     if (i == 0) {
-  //       $scope.sortedAlbums.push(albums[i]);
-  //     } else if (albums[i].title != $scope.sortedAlbums[$scope.sortedAlbums.length - 1].title) {
-  //       $scope.sortedAlbums.push(albums[i]);
-  //     }
-  //   }
-  //   console.log('sortedalbums', $scope.sortedAlbums);
-  // }
-
   var bar = new ProgressBar.Line(container, {
   strokeWidth: 4,
-  easing: 'easeOut',
+  easing: 'easeInOut',
   duration: 1000,
   color: '#FFA500',
   trailColor: '#eee',
@@ -104,7 +104,7 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
   });
   bar.animate(1.0, {
     duration: 15000
-  });  // Number from 0.0 to 1.0
+  });
 
   function setProgress(artists) {
     int = artists.length;

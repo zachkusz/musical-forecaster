@@ -4,6 +4,18 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
   $scope.userName = LoginAndLandingFactory.user.userName;
   console.log($scope.userName);
   searchTodaysAlbums();
+
+  if (LoginAndLandingFactory.artists.length == 0) {
+    LoginAndLandingFactory.getArtists().then(function(){
+      console.log('ran getArtists');
+      var artists = LoginAndLandingFactory.artists;
+      console.log('users artists', artists);
+    });
+  } else {
+    var artists = LoginAndLandingFactory.artists;
+  }
+
+
   //requests albums released today (logic for today is server side)
   function searchTodaysAlbums(){
     $http.get('/musicBrainz/today').then(
@@ -15,7 +27,6 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
         var jsonObj = x2js.xml_str2json( xmlText );
         //extracting useful info from data-object
         $scope.albums = jsonObj.metadata['release-list'].release;
-        console.log($scope.albums);
         $scope.sortedAlbums = [];
         removeDuplicates($scope.albums);
         console.log('sorted', $scope.sortedAlbums);

@@ -26,6 +26,23 @@ router.get('/:id', function (req, res) {
   });
 });
 
+// search all artists from all users
+router.get('/artists/all', function (req, res) {
+  pg.connect(connectionString, function(err, client, done) {
+    if (err) {
+      res.sendStatus(500);
+    }
+
+    client.query('SELECT artist_id FROM artists',
+    function(err, result) {
+    done();
+
+    res.send(result.rows);
+
+    });
+  });
+});
+
 //gets artist name
 router.get('/name/:id', function (req, res) {
   var id = req.params.id;

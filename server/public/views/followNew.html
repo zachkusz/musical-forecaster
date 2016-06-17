@@ -25,6 +25,6 @@
     <h6 class="two columns search">{{artist.disambiguation}}</h6>
     <h6 class="two columns search">{{artist.area.name}}</h6>
     <h6 class="two columns search">{{artist['life-span'].begin}}</h6>
-    <button class="two columns search follow" ng-click="follow(artist._id, artist.name)">Follow</button>
+    <button class="two columns search follow" ng-show="artist.isClicked == false" ng-click="follow(artist)">Follow</button>
   </div>
 </div>
