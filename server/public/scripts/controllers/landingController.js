@@ -5,15 +5,15 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
   console.log($scope.userName);
   searchTodaysAlbums();
 
-  if (LoginAndLandingFactory.artists.length == 0) {
-    LoginAndLandingFactory.getArtists().then(function(){
-      console.log('ran getArtists');
-      var artists = LoginAndLandingFactory.artists;
-      console.log('users artists', artists);
-    });
-  } else {
-    var artists = LoginAndLandingFactory.artists;
-  }
+  // if (LoginAndLandingFactory.artists.length == 0) {
+  //   LoginAndLandingFactory.getArtists().then(function(){
+  //     console.log('ran getArtists');
+  //     var artists = LoginAndLandingFactory.artists;
+  //     console.log('users artists', artists);
+  //   });
+  // } else {
+  //   var artists = LoginAndLandingFactory.artists;
+  // }
 
 
   //requests albums released today (logic for today is server side)
