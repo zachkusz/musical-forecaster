@@ -39,7 +39,6 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
         if (jsonObj == null || jsonObj.metadata == undefined) {
           $scope.isError = true;
           $scope.failed.push(artist);
-          console.log('failed to load', artist);
         }
 
         //gets the array of albums
@@ -47,13 +46,11 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
         sortOutUpcommingAlbums(albums);
 
-        console.log(albums);
-        console.log($scope.anticipatedAlbums);
+        //sets loading bar to 100% after last artist in array returns promise
         if (z + 1 == int) {
           bar.animate(1.0, {
             easing: 'linear'
           });
-          console.log('on last artist, setting loading bar to 1.0');
         }
       }
     );
@@ -66,11 +63,10 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
     });
   }
 
-  $scope.error = ':( MusicBrainz refused your freindship... \nKeep Trying!';
+  $scope.error = ':( MusicBrainz refused your friendship... \nKeep Trying!';
   $scope.refresh = function(failedArray) {
     $scope.isError = false;
     var thisFailureInstance = failedArray.length;
-    console.log(failedArray);
     for (var y = thisFailureInstance; y > 0; y--) {
       getAlbums($scope.failed[y - 1], -2); //arbitrary number so as to not fuck with the loading bar
       $scope.failed.pop();
@@ -108,7 +104,6 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
   function setProgress(artists) {
     int = artists.length;
-    console.log(int);
   }
 
 }]);

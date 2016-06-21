@@ -1,16 +1,13 @@
 app.controller('FollowNewController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory',
 function($scope, $http, $window, $location, LoginAndLandingFactory) {
-  console.log('followNew controller running');
   getArtists();
   $scope.userName = LoginAndLandingFactory.user.userName;
   var user_id = LoginAndLandingFactory.user.user_id;
   var allArtists = [];
-  console.log($scope.userName);
   $scope.query = ''; //makes user's search a global scope
 
   $scope.search = function() {
     $scope.artists = []; //resets the array for every search
-    console.log('searched for: ' + $scope.query);
     getArtists().then(function() {
       $http.get('/musicBrainz/search/' + $scope.query).then(
         function(response) {
@@ -22,7 +19,7 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
           //checks for errors  and displays result count
           if (jsonObj == null || jsonObj.metadata == undefined || jsonObj.metadata['artist-list'].artist == undefined) {
-            $scope.found = 'No results - try another search ' +
+            $scope.found = 'No results - Try another search. ' +
             '(or MusicBrainz is just mad so try again)';
           } else {
             $scope.found = 'Displaying top ' +
@@ -37,7 +34,6 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
             $scope.artists[i].isClicked = false;
             $scope.artists[i].alreadyFollowed = false;
           }
-          console.log('list after alreadyFollowed added', $scope.artists);
         }
       );
     });
@@ -52,21 +48,20 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
     //checks if this artist is already in the artist list for any user
     for (var y = 0; y < allArtists.length; y++ ) {
       if (allArtists[y].artist_id == artist._id) {
-        //send to weird path
+        //send to 'old' path
         artist.alreadyFollowed = true;
-        console.log('sent to wierd path');
       }
     }
 
     if (artist.alreadyFollowed == true) {
-      //weird path
+      //'old' path
       $http.post('/follow/repeat/artist', follow).then(
         function(response) {
           console.log('followed on the weird path', response);
         }
       );
     } else {
-      //happy path
+      //new path
       $http.post('/follow', follow).then(
         function(response) {
           console.log('followed on the happy path', response);
@@ -78,7 +73,6 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
   function getArtists() {
     return $http.get('/follow/artists/all').then(function(response) {
       allArtists = response.data;
-      console.log('allArtists after get call', allArtists)
     });
   }//end getArtists
 

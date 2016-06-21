@@ -2,19 +2,7 @@ app.controller('LandingController', ['$scope','$http', '$window', '$location', '
 function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
   $scope.userName = LoginAndLandingFactory.user.userName;
-  console.log($scope.userName);
   searchTodaysAlbums();
-
-  // if (LoginAndLandingFactory.artists.length == 0) {
-  //   LoginAndLandingFactory.getArtists().then(function(){
-  //     console.log('ran getArtists');
-  //     var artists = LoginAndLandingFactory.artists;
-  //     console.log('users artists', artists);
-  //   });
-  // } else {
-  //   var artists = LoginAndLandingFactory.artists;
-  // }
-
 
   //requests albums released today (logic for today is server side)
   function searchTodaysAlbums(){
@@ -29,7 +17,6 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
         $scope.albums = jsonObj.metadata['release-list'].release;
         $scope.sortedAlbums = [];
         removeDuplicates($scope.albums);
-        console.log('sorted', $scope.sortedAlbums);
       }
     );
   } //end of searchTodaysAlbums

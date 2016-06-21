@@ -5,7 +5,6 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
       password: ''
     };
     $scope.message = '';
-    console.log('login controller running');
 
     $scope.login = function() {
       if($scope.user.username == '' || $scope.user.password == '') {
@@ -21,7 +20,7 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
             });
           } else {
             console.log('failure: ', response);
-            $scope.message = "Wrong!!";
+            $scope.message = "Incorrect username or password";
           }
         });
       }

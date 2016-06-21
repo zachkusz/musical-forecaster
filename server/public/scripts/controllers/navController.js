@@ -1,6 +1,5 @@
 app.controller('NavController', ['$scope', '$http', '$window', '$location',
 function($scope, $http, $window, $location) {
-console.log('NavController running');
 
   $scope.show = false;
 

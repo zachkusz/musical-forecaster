@@ -1,16 +1,20 @@
 <div class="container">
   <h1>Register  New User</h1>
+
   <form ng-submit="registerUser()">
     <div>
       <label for="username">Username:</label>
       <input type="text" ng-model="user.username" />
     </div>
+
     <div>
       <label for="password">Password:</label>
       <input type="password" ng-model="user.password" />
     </div>
+
     <input class="button" type="submit" name="submit" value="Register" />
     <a class="log-reg" href="#login">Cancel</a>
   </form>
+
   <h6 role="alert" ng-if="message != ''">{{message}}</h6>
 </div>
