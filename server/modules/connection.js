@@ -1,4 +1,3 @@
-// connection.js
 var connectionString = 'postgres://localhost:5432/musical-forecast';
 
 if(process.env.DATABASE_URL != undefined) {

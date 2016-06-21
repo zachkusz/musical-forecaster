@@ -1,4 +1,3 @@
-// encryption.js copypasta from kris
 var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 

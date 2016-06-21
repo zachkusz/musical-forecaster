@@ -1,8 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('passport'); //may not need
-var path = require('path'); //also may not need?
-var request = require('request'); //may not need
 var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/musical-forecast';
 

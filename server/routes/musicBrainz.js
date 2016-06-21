@@ -1,13 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('passport'); //may not need
 var path = require('path');
 var request = require('request');
   cachedRequest = require('cached-request')(request)
   cacheDirectory = path.join(__dirname, "../../tmp/cache");
   cachedRequest.setCacheDirectory(cacheDirectory);
-var urlencode = require('urlencode'); //probs uninstall
-
 
 router.get('/today', function (req, res) {
   var today = new Date().toISOString().slice(0,10);
@@ -18,7 +15,7 @@ router.get('/today', function (req, res) {
     },
     ttl: 60000
   };
-  cachedRequest(options, function(err, response, body) { //changed to cached
+  cachedRequest(options, function(err, response, body) {
     if (err) {
       res.sendStatus(500);
       return;
@@ -46,10 +43,9 @@ router.get('/search/:query', function (req, res) {
 
 router.get('/albums/:artist', function (req, res) {
   var artist = req.params.artist;
-  //var encodedReq = urlencode('AND arid:' + artist);
-  //console.log(encodedReq);
   var options = {
-    url: 'http://musicbrainz.org/ws/2/release?artist=' + artist + '&status=official&type=album&limit=100&inc=artist-credits',
+    url: 'http://musicbrainz.org/ws/2/release?artist=' + artist +
+    '&status=official&type=album&limit=100&inc=artist-credits',
     headers: {
       'User-Agent': 'MusicalForecaster/1.0.0 (zskusz@gmail.com)'
     },

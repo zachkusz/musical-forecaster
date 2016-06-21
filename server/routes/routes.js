@@ -1,9 +1,8 @@
-//copied from sion's. unclear as to what this file does...?
 var express = require('express');
 var router = express.Router();
 var path = require('path');
 var pg = require('pg');
-var connectionString = 'postgres://localhost:5432/musical-forecast'; //...also changed from budget
+var connectionString = 'postgres://localhost:5432/musical-forecast';
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/', function(req, res) {

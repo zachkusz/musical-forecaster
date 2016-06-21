@@ -1,4 +1,3 @@
-//copied from sion's
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
@@ -7,7 +6,7 @@ var path = require('path');
 // Handles login form POST from index.html
 router.post('/',
     passport.authenticate('local', {
-        successRedirect: '/router', //is that named correctly?
+        successRedirect: '/router',
         failureRedirect: '/'
     })
 );

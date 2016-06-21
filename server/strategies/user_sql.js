@@ -1,4 +1,4 @@
-/* coppy pasted out of kris's -- use this exact create table
+/*use this exact create table
 CREATE TABLE users (
  id SERIAL PRIMARY KEY,
  username VARCHAR(100) NOT NULL UNIQUE,

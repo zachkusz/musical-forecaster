@@ -1,8 +1,8 @@
-//copied from sion's changed connection
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
+
 //server connection
 var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/musical-forecast';
@@ -46,11 +46,8 @@ app.use('/router', router);
 app.use('/login', login);
 app.use('/', login);
 
-// Handle index file separately
-// app.get('/', function(req, res) {
-//   res.sendFile(path.join(__dirname, './public/views/login.html'));
-// })
 
+//set port and listen
 app.set('port', process.env.PORT || 9000);
 app.listen(app.get('port'), function() {
     console.log('Listening on port: ', app.get('port'));
