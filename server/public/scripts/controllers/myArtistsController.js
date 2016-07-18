@@ -84,10 +84,31 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
       // pushes only new albums into upcoming array
       if (albums[j].date._d >= now) {
+        getArtwork(albums[j]._id); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         $scope.anticipatedAlbums.push(albums[j]);
+        console.log('list of upcoming albums', albums);
       }
     }
   }
+
+  //server side call setup
+  function getArtwork(mbid) { //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    console.log('searching for artwork by ' + mbid);
+    $http.jsonp('coverartarchive.org/release/' + mbid).then(function(response) {
+      $scope.anticipatedAlbums.push(albums[j]);
+      console.log(response);
+    });
+  }
+
+  //json method setup
+  $http({method: 'JSONP', url: "coverartarchive.org/release/" + mbid + "/front"}).
+       success(function(data, status) {
+         $scope.items = data.entries;
+       }).
+       error(function(data, status) {
+         console.log(data || "Request failed");
+     });
+};
 
   var bar = new ProgressBar.Line(container, {
   strokeWidth: 4,
@@ -99,7 +120,7 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
   svgStyle: {width: '100%', height: '100%'}
   });
   bar.animate(1.0, {
-    duration: 15000
+    duration: 18000
   });
 
   function setProgress(artists) {

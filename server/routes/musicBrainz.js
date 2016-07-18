@@ -60,4 +60,23 @@ router.get('/albums/:artist', function (req, res) {
   });
 });
 
+// router.get('/artwork/:id', function (req, res) {
+//   var artist = req.params.id;
+//   var options = {
+//     url: 'http://musicbrainz.org/ws/2/release?artist=' + artist +
+//     '&status=official&type=album&limit=100&inc=artist-credits',
+//     headers: {
+//       'User-Agent': 'MusicalForecaster/1.0.0 (zskusz@gmail.com)'
+//     },
+//     ttl: 60000
+//   };
+//   cachedRequest(options, function(err, response, body) {
+//     if (err) {
+//       res.sendStatus(500);
+//       return;
+//     }
+//     res.send(body);
+//   });
+// });
+
 module.exports = router;
