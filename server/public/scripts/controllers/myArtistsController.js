@@ -1,4 +1,4 @@
-app.controller('MyArtistsController', ['$scope','$http', '$window', '$location', 'LoginAndLandingFactory',
+app.controller('MyArtistsController', ['$scope', '$http', '$window', '$location', 'LoginAndLandingFactory',
 function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
   var now = moment(); //current date to compare album dates with
@@ -91,24 +91,18 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
     }
   }
 
-  //server side call setup
+  //need a way to tell angular how to interpret json
   function getArtwork(mbid) { //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     console.log('searching for artwork by ' + mbid);
-    $http.jsonp('coverartarchive.org/release/' + mbid).then(function(response) {
-      $scope.anticipatedAlbums.push(albums[j]);
-      console.log(response);
+    $http({
+    method: 'JSONP',
+    url: "http://coverartarchive.org/release/" + mbid })
+    .then(function successCallback(response) {
+      console.log('good album art', response);
+    }, function errorCallback(response) {
+      console.log(' BAD album art', response);
     });
   }
-
-  //json method setup
-  $http({method: 'JSONP', url: "coverartarchive.org/release/" + mbid + "/front"}).
-       success(function(data, status) {
-         $scope.items = data.entries;
-       }).
-       error(function(data, status) {
-         console.log(data || "Request failed");
-     });
-};
 
   var bar = new ProgressBar.Line(container, {
   strokeWidth: 4,
