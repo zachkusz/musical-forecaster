@@ -13,7 +13,6 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
 
   function getArtists() {
     $http.get('/follow/' + $scope.user_id).then(function(response) {
-      console.log(response);
       var artists = response.data;
       setProgress(artists);
       //loops through to get albums for each artist
@@ -21,15 +20,12 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
         getArtistName(artists[z].artist_id);
         getAlbums(artists[z].artist_id, z);
       }
-
     });
   }//end getArtists
 
   getAlbums = function(artist, z) {
     $http.get('/musicBrainz/albums/' + artist).then(
       function(response) {
-        console.log(response);
-
         //converts xml to json
         var x2js = new X2JS();
         var xmlText = response.data;
@@ -86,7 +82,6 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
       if (albums[j].date._d >= now) {
         getArtwork(albums[j]._id); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         $scope.anticipatedAlbums.push(albums[j]);
-        console.log('list of upcoming albums', albums);
       }
     }
   }
@@ -94,13 +89,21 @@ function($scope, $http, $window, $location, LoginAndLandingFactory) {
   //need a way to tell angular how to interpret json
   function getArtwork(mbid) { //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     console.log('searching for artwork by ' + mbid);
+    // $http.get('/musicBrainz/artwork/' + mbid).then(function(response) {
+    //   console.log('artwork call', response);
+    // });
     $http({
-    method: 'JSONP',
-    url: "http://coverartarchive.org/release/" + mbid })
-    .then(function successCallback(response) {
-      console.log('good album art', response);
-    }, function errorCallback(response) {
-      console.log(' BAD album art', response);
+      method: 'JSONP',
+      url: "http://coverartarchive.org/release/" + mbid + "/",
+      // responseType: "json",
+      params: {
+        format: 'json',
+        callback: 'JSON_CALLBACK'
+      }
+    })
+    .then(function(response) {
+      var bum = response;
+      console.log('BAD album art', bum);
     });
   }
 

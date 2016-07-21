@@ -1,0 +1,5 @@
+{"images":[{"edit":39155191,"id":"13777272125","types":["Front"],"comment":"","
+image":"http://coverartarchive.org/release/1ebfe987-3dba-4075-a1ac-ce2aafaae49f/13777272125.jpg","thumbnails":{
+"large":"http://coverartarchive.org/release/1ebfe987-3dba-4075-a1ac-ce2aafaae49f/13777272125-500.jpg",
+"small":"http://coverartarchive.org/release/1ebfe987-3dba-4075-a1ac-ce2aafaae49f/13777272125-250.jpg"},
+"front":true,"back":false,"approved":true}],"release":"https://musicbrainz.org/release/1ebfe987-3dba-4075-a1ac-ce2aafaae49f"}
