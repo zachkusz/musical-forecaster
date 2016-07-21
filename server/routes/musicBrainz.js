@@ -75,7 +75,7 @@ router.get('/artwork/:id', function (req, res) {
         format: 'json',
         callback: 'JSON_CALLBACK'
       },
-    ttl: 60000
+    ttl: 120000
   };
   cachedRequest(options, function(err, response, body) {
     if (err) {
